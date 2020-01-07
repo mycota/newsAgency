@@ -32,7 +32,16 @@ for all css, functions and database connection check the resource folder. it has
 the fronted are of the file outside the editor folder but it has different css, database conn file. the connection is part 
 of every code
     
-    
+ 
+# what to add.
+
+The Marketing Advertisement part is not done.
+
+More can be done on the Writer side too
+
+The hindi part is not also well done
+
+
 I hope you can find it useful.
 
 
