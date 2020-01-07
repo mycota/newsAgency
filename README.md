@@ -20,7 +20,9 @@ The news can be timed when to go live and when not to.
     Use these credintials to get access
     
     Admin | admin@newsagency.com password: 12345678
+    
     Editor | editor@newsagency.com password: 12345678
+    
     Writer | writer@newsagency.com password: 12345678
     
 # The structure of the project
@@ -37,5 +39,6 @@ I hope you can find it useful.
 # Developed by
 
 Adamu, Mohammed
+
 Paresh Shama
 
