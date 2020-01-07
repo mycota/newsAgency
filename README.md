@@ -33,7 +33,7 @@ the fronted are of the file outside the editor folder but it has different css, 
 of every code
     
  
-# what to add.
+# What to add.
 
 The Marketing Advertisement part is not done.
 
