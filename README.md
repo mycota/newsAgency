@@ -11,6 +11,8 @@ After the news is publish there is another part where the news go live for peopl
 The news gose through stages, from draft, pending, live, archived
 The news can be timed when to go live and when not to.
 
+There is also a hindi version of the news for hindi readers
+
 # Instructions:
 
 1. After download, just drop it in the htdocs folder.
