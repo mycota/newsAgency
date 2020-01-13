@@ -1,0 +1,202 @@
+<?php
+
+$error = "";
+$n=$un=$eml="";
+
+if(isset($_POST["submit"])){
+
+		$n =  $_POST["name1"];
+		$gen =  $_POST["gen"];
+		$un = $_POST["unm"];
+		$eml= $_POST["eml"];
+		$p= $_POST["pwd"];
+		$cp= $_POST["cpw"];
+		$dob = $_POST["dob"];
+		//header('Location: ../php/User_Registration?nm=\'".$n."\'&email=\'".$eml."\'&uname=\'".$un."\'');
+		if($p!=$cp){
+			$error='* error with confirm password...';
+		} else {
+			$query = "select * from tbl_user where usr_name=\"".$un."\" or email=\"".$eml."\";";
+			//echo $query;
+			$res = mysqli_query($connection,$query);
+			$r=0;
+			//echo mysqli_error($connection);
+			while($row = mysqli_fetch_assoc($res)){
+				$r++;
+			}
+			
+			if ($r>0){
+				$error="this email or username is already registred...";
+			} else{
+				$query = 'INSERT INTO `tbl_user` (`fullname`, `email`, `gender`, `birthdate`, `addressID`, `datecreated`,`Usr_Name`,`Password`) VALUES (\''.$n.'\', \''.$eml.'\', \''.$gen.'\',\''.$dob.'\', NULL, NULL,\''.$un.'\',\''.md5($p).'\')';;
+			
+				$res = mysqli_query($connection,$query);
+				//echo mysqli_error($connection);
+				//echo $query;
+				//echo $res;
+				
+				header('Location: Dashboard.php');
+				
+			}
+			
+		}
+}
+
+?>
+
+<style>
+	label{
+		font-family: Constantia;
+		font-size: 1.5em;
+	}
+
+	div.usr{
+		text-shadow: 3px 3px 3px lightgray;
+	}
+	
+	div.usr input{
+		font-family: Constantia;
+		letter-spacing: 1px;
+		font-size: 1.5em;
+		padding: 10px;
+	}
+
+	#btns,#btnr{
+		font-size:25px; width:200px; box-shadow: 3px 3px 3px gray;
+	}
+
+	td #btns:hover,#btnr:hover{
+		box-shadow: 0px 0px 3px gray;
+		color:blue;
+	}	
+
+	div.usr td{
+		font-family: Constantia;
+		letter-spacing: 1px;
+		font-size: 20px;
+	}	
+	
+	input.chk{
+		width: 50px;
+	}	
+	
+	div.add{
+	
+	float:left;
+	//border: 1px solid black;
+	position: relative;
+	top: 100px;
+	//margin-top: -350px;
+	//margin-left: 250px;'
+	//margin-top: 200px;
+	//left: 230px;
+
+	//z-index:-5;
+	display:block;
+	padding-bottom: 100px;
+	
+
+}
+
+div.add img{ 
+	width: 300px;
+	min-height:800px;
+	border-radius: 10px;
+	box-shadow: 3px 3px 3px gray;
+}
+
+</style>
+
+<script>
+
+
+</script>
+
+<section style="margin-bottom: 100px; padding-bottom: 50px; position:relative; top: 100px; float: left; width: 68%; left: 40px; border: 1px solid gray; height: 80%;">
+<div class="usr" align="center"  style="font-size: 3em; margin:auto; border-bottom: 1px solid black;s border-radius: 30px; padding: 10px;">
+	User Registration
+</div>
+<div align="center" class="usr" style=" margin: auto;  height: 300px; padding-top: 10px;">
+	<form method="post" style="" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
+		<h3 style="color: red;" ><?php echo $error; ?></h3>
+		<table>
+		<tr>
+		<td> <label > Name </label> </td> <td> <label>:</label> <input name="name1" type="text" placehood="Full Name" required /> </td>
+		</tr>
+		<tr>
+		<td>
+		<label> Gender </label> </td> <td> <label>:</label> <input type="radio" name="gen"  value="Male" checked/> Male <input type="radio" name="gen"  value="Female" required/> Female</td>  </tr>
+		
+		<tr>
+		<td>
+		<label> Username </label></td> <td> <label>:</label> <input name="unm"  type="text" placehood="User Name" required /> </td>
+		</tr>
+		
+		<tr>
+		<td>
+		<label> Date Of Birth </label></td> <td> <label>:</label> <input name="dob"  type="date" placehood="" required /> </td>
+		</tr>
+		
+		<tr>
+		<td>
+		<label > Email-id </label> 
+		</td>
+		<td>
+		<label>:</label> <input type="e-mail" name="eml"   placeholder="abcsd123@hotmail.com" required />
+		</td>
+		</tr>
+		
+		<tr>
+		<td>
+		<label> Password </label> </td> <td> <label>:</label> <input name="pwd"  type="password" placehood="password" required/> </td>
+		</tr>
+		
+		<tr>
+		<td>
+		<label> Confirm Password <?php if(!empty($error)) { echo "<span style=\"color:red;\">*</span>"; }?></label> </td>  <td> <label>:</label> <input name="cpw"  type="password" placehood="password" required/> </td>
+		</tr>
+		
+		<!---<tr>
+		<td>
+		<label > Favorite </label>
+		</td>
+		
+		<td>
+		<label>:</label> <input class="chk" type="checkbox" name="Fav-Sp" value="Sports" checked/> Sports
+		<input type="checkbox" class="chk" name="Fav-Tr" value="Travell"/> Travell
+		<input type="checkbox" class="chk" name="Fav-En" value="Entertainment"/> Entertainment
+		<input type="checkbox" class="chk" name="Fav=Bu" value="Business"/> Business
+		<input type="checkbox" class="chk" name="Fav-Re" value="Religius"/> Religius
+		</td>
+		</tr>--->
+		
+		<tr>
+		</tr>
+		
+		<tr>
+		<td>
+		<br />
+		<input style="" name="submit" type="submit" value="Sign Up"/>
+		</td>
+		<td>
+		<br />
+		<input style="" name="btnr" type="reset" value="Reset"/>
+		</td>
+		</tr>
+		</table>
+
+	</form>
+</div>
+</section>
+
+<div class="add">
+	<img id="add_img" src='../editor/resource/images/Business/<?php echo $addimg[$jk]; ?>' />
+</div>
+
+
+<?php
+
+
+
+
+?>

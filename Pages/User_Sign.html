@@ -1,0 +1,105 @@
+
+
+<style>
+	label{
+		font-family: Constantia;
+		font-size: 1em;
+	}
+
+	div.usr{
+		text-shadow: 3px 3px 3px lightgray;
+	}
+	
+	div.usr input{
+		font-family: Constantia;
+		letter-spacing: 1px;
+		font-size: 1em;
+		padding: 10px;
+	}
+	div.usr td{
+		font-family: Constantia;
+		letter-spacing: 1px;
+		font-size: 20px;
+	}
+
+	#title{
+		//margin-top: 500px;
+		
+	}
+	
+	div.add{
+	
+	//float:left;
+	//border: 1px solid black;
+	position: relative;
+	top: 100px;
+	//margin-top: -350px;
+	//margin-left: 250px;'
+	//margin-top: 200px;
+	//left: 230px;
+
+	//z-index:-5;
+	display:initial;
+	padding-bottom: 100px;
+	
+
+}
+
+div.add img{ 
+	width: 300px;
+	min-height:800px;
+	border-radius: 10px;
+	box-shadow: 3px 3px 3px gray;
+}
+	
+td{
+	vertical-align: text-top;
+}
+	
+</style>
+
+<section style="position: relative; top: 100px; float: left; width: 65%;">
+<div class="usr"  id="title" style="font-size: 3em; min-width: 600px; text-align:center;">
+	User Sign In
+</div>
+<div align="center" class="usr" style=" width: 30%; padding-top: 50px; margin: auto;  height: 300px; margin-left: 30%;">
+	<form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" style="">
+		<table>
+		
+		<tr>
+		<td colspan="2">
+		<h3 style="color: red;"> <?php echo $error; ?></h3></td>
+		</tr>
+		
+		<tr>
+		<td>
+		<label> Username:  &nbsp;</label></td> <td> <input type="text" name="name" placehood="User Name" required/> </td>
+		</tr>
+		
+		<tr>
+		<td>
+		<label> Password: &nbsp; </label> </td> <td> <input type="password" name="pwd" placehood="password" required/> </td>
+		</tr>
+	
+		<tr>
+		<td>
+		<br />
+		<input style="font-size:1em; box-shadow: 3px 3px 3px gray;" type="submit" name="submit" value="Sign In"/>
+		</td>
+		<td>
+		<br />
+		<input style="font-size:1em; box-shadow: 3px 3px 3px gray;" type="reset"  value="Reset"/>
+		</td>
+		</tr>
+		
+	</table>
+	</form>
+	<a href="User_Registration.php"> <div style="margin-top: 30px; border: 1px solid black; color: blue; padding: 10px; border-radius: 10px; width: 200px; margin:auto; font-size: 20px;">Sign Up </div></a>
+</div>
+
+	</section>
+	
+	
+<div class="add">
+	<img id="add_img" src='../editor/resource/images/Business/<?php echo $addimg[$jk]; ?>' />
+</div>

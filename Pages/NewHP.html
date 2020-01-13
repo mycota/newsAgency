@@ -1,0 +1,84 @@
+<html>
+
+<head>
+	<title>Natinal News Agency</title>
+	<link rel="shourtcut icon" href="../images/Logo.png" />
+
+	<style>
+
+	</style>
+
+	<script>
+			var isHidden=true;
+			var isBoxVisible=True;
+			function show(){
+				var a = document.getElementById("MenuList").style;
+			
+				if(isHidden){
+					isHidden=false;
+					a.display="block";
+					a.height="80%";
+					//document.body.style.marginLeft="300px";			
+					a.width="300px";
+		
+				} else {
+					isHidden=true;
+					//a.display="none";
+					a.width="0";
+					a.height="80%";
+					//a.background="white";
+					//document.body.style.marginLeft="0px";
+					//a.overflow = "hidden";
+				}
+
+				return 0;
+			}
+
+			function mobile(){
+				var s = document.getElementById("srchbox").style;
+				var s1 = document.querySelector('#srchbox');
+				var width = window.getComputedStyle(s1).width;
+				if (width < "669.2px"){
+					s.display='none';
+					isBoxVisible=False;
+				} else {
+					s.display='block';
+					isBoxVisible=True;
+					//alert(width);
+				}
+			}
+
+			function show_box(){
+				var s = document.getElementById("srchbox").style;
+				if (isBoxVisible){
+					s.display='none';
+					s.width='80%';
+					isBoxVisible=False;
+				} else {
+					s.display='block';
+					s.margin.top='500px';
+					s.width='30%';
+					isBosVisible=True;
+				}
+			}
+
+	</script>
+</head>
+
+<body>
+
+
+	<header>
+
+		<div class="menu"  onClick="show();">
+			<hr> <hr> <hr> 					
+		</div>
+
+
+	</header>
+
+
+</body>
+
+
+</html>

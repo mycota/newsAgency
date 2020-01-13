@@ -1,0 +1,20 @@
+div.menu{
+	float:left;
+	//border: 2px solid lightblue;
+	width:50px;2
+	box-shadow: 3px 3px 15px blue;
+	//border-radius: 15px;
+}
+
+nav{
+	//border: 1px solid black;
+	//margin:auto;
+	width:60%;
+	height:10%;
+}
+
+div.menu:hover{
+	//border: 2px solid lightgray;
+	//box-shadow: 1px 1px 10px white;
+	//border-radius: 10px;
+}

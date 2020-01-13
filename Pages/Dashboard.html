@@ -1,0 +1,118 @@
+<?php
+
+	
+	$repage="Add_Registration.php";
+	
+?>
+
+
+
+<style>
+
+div.add{
+	
+	//float:left;
+	//border: 1px solid black;
+	position: relative;
+	top: 100px;
+	//margin-top: -350px;
+	//margin-left: 250px;'
+	//margin-top: 200px;
+	//left: 230px;
+
+	//z-index:-5;
+	display:initial;
+	padding-bottom: 100px;
+	
+
+}
+
+div.add img{ 
+	width: 300px;
+	min-height:800px;
+	border-radius: 10px;
+	box-shadow: 3px 3px 3px gray;
+}
+
+
+div.contc:hover{
+	box-shadow:5px 5px 5px lightgray;
+	transition: 0.5s;
+}
+
+a:hover{
+	color: black;
+}
+
+</style>
+
+<section style="position: relative; top: 110px; float: left; left: 70px;  width: 68%; ">
+
+	<div class="news" style="border-radius: 8px; text-align: center; border: 1px solid gray; padding: 10px; heigh: 480px;overflow: auto;">
+		
+		<h1 style="margin:auto; text-shadow: 3px 1px 3px gray; font-size: 50px;">
+			<span id="purple"><?php echo $board; ?></span>
+		</h1>
+		
+	</div>
+	
+	
+	
+	<div style="border-radius: 8px; border: 1px solid gray; padding: 5px; margin-top: 20px; height: 60%; font-size: 20px; overflow: auto;">
+		 <h1 align='center' style="margin:auto; width: 90%; border-radius: 30px; border-bottom: 3px solid gray; padding-bottom: 5px; color: black; text-shadow: 1px 0px 1px black;"><?php echo $usr; ?></h1>
+		 
+		 
+	<div class="dash" style="<?php echo $style; ?>">
+	<?php
+		 if ($board!="Advertisment") {
+		 ?>
+		<div class="contc" style=" transition:0.5s;  float: left; width: 200px; border-radius: 30px; border: 1px solid gray; margin-right: 20px; position: relative; left: 10px; top: 20px; padding: 10px;">
+			<p style="margin:auto; text-align: center; padding: 3px; border-radius: 10px; border-bottom: 3px solid black; "> Review News </p>
+			<p style="text-align: center;"><a href="LikedNews.php" style="letter-spacing: 2px; text-decoration: none; text-shadow: 1px 0px 0px black;"> Liked News </a></p>
+			<p style="text-align: center;"><a href="Commented.php" style="text-decoration: none; text-shadow: 1px 0px 0px black;" > Commented News </a></p>
+			
+			
+		</div>
+		
+		<?php
+		
+			}
+			
+		$q = "Select * from tbl_advert_packages;";
+		$r = mysqli_query($connection,$q);
+		
+		while($row = mysqli_fetch_assoc($r)){
+			$pcid=$row["pack_id"];
+			$name=$row["pack_name"];
+			$amnt=$row["pack_amount"];
+			$beni=$row["pack_benefits"];
+		
+		?>
+		<div class="contc" style=" transition:0.5s;  float: left; width: 200px; border-radius: 30px; border: 1px solid gray; margin-right: 20px; position: relative; left: 10px; top: 20px; padding: 10px;">
+			<p style="margin:auto; text-align: center; padding: 3px; border-radius: 10px; border-bottom: 3px solid black; "><?php echo $name; ?> </p>
+			<p style="letter-spacing: 2px; text-decoration: none; text-shadow: 1px 0px 0px black; ">  <?php echo $beni; ?></p>
+			<p style="text-align: center;">Rs. <?php echo $amnt; ?> \- </p>
+			<p align="center" ><form align="center" style="display: initial;" method="post" action="<?php echo htmlspecialchars($repage); ?>" onsubmit="return check();"><span name="pkid" hidden><?php echo $pcid; ?></span><input style="color: blue; font-size: 15px;" align="center" name="submitadd" type="submit" value="Select <?php echo $name; ?>"/></form></p>
+		</div>
+		
+		<?php
+		}
+		?>
+		
+		<!---<div class="contc" style=" transition:0.5s;  float: left; width: 200px; border-radius: 30px; border: 1px solid gray; margin-right: 20px; position: relative; left: 10px; top: 20px; padding: 10px;">
+			<p style="margin:auto; text-align: center; padding: 3px; border-radius: 10px; border-bottom: 3px solid black; "> Become Premium User </p>
+			<p style="text-align: center;"><a href="#" style="letter-spacing: 2px; text-decoration: none; text-shadow: 1px 0px 0px black;">All Premium Services<sup>* </sup></p>
+			<p style="text-align: center;" style="letter-spacing: 2px; text-decoration: none; text-shadow: 1px 0px 0px black;"> Just Only Rs. 500 /- </p>
+			<p style="text-align: center;" style="letter-spacing: 2px; text-decoration: none; text-shadow: 1px 0px 0px black;"><button> Pay Now </button></p>
+			<p style="font-size: 13px; text-align: center; color:black;">* Terms & Conditions</P>
+			
+		</div>--->
+		
+		</div>
+
+	</div>
+</section>
+
+<div class="add">
+	<img id="add_img" src='../editor/resource/images/Business/<?php echo $addimg[$jk]; ?>' />
+</div>

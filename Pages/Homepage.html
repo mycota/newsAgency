@@ -1,0 +1,274 @@
+
+<style>
+
+div.news{
+	float: left;
+	//position: relative;
+	//top: 200px;
+	//left: 150px;
+	//border: 1px solid gray;
+	//box-shadow: 3px 3px 3px gray;
+	//border-radius: 10px;
+	padding: 10px;
+	width: 98%;
+	height: 130px;
+	//white-space: nowrap;
+	overflow: auto;
+	padding-bottom: 20px;
+	//text-overflow: ellipsis;
+	
+	
+}
+
+.actpages a{
+	text-decoration: none;
+	color: blue;
+}
+
+.norpages a{
+
+	text-decoration: none;
+	color: black;
+
+}
+
+div.actpages{
+	
+	background: lightblue;
+	color: black;
+	font-weight: bold;
+
+}
+
+div.norpages{
+
+	background: rgba(135,206,250,0.3);
+	color: black;
+}
+
+
+
+div.news_con1{
+	float: left;
+	position: relative;
+	top: 0px;
+	left: 70px;
+	//border: 1px solid gray;
+	//box-shadow: 3px 3px 3px gray;
+	border-radius: 10px;
+	padding: 0px;
+	width: 95%;
+	min-width: 700px;
+	height: 55x;
+	//white-space: nowrap;
+	//overflow: hidden;
+	//text-overflow: ellipsis;
+	overflow:auto;
+	margin-bottom: 20px;
+	margin-right: 10px;
+	
+}
+
+div.news_con{
+	float: left;
+	position: relative;
+	top: 0px;
+	left: 70px;
+	border: 1px solid gray;
+	//box-shadow: 3px 3px 3px gray;
+	border-radius: 10px;
+	padding: 10px;
+	width: 95%;
+	min-width: 700px;
+	height: 185px;
+	//white-space: nowrap;
+	//overflow: hidden;
+	//text-overflow: ellipsis;
+	overflow:auto;
+	margin-bottom: 20px;
+	margin-right: 10px;
+}
+
+div.container{
+	position: relative;
+	//clear: left;
+	//float: left;
+	top: 3px;
+	//height: 10px;
+	//border: 1px solid black;
+	overflow:auto;
+}
+
+
+
+div.container img{
+	//position: relative;
+	float: left;	
+	margin-top: 5px;
+	margin-right: 10px;
+	margin-bottom: 5px;
+	//right: 10;	
+	border-radius: 10px;
+	width: auto;
+	height: 100px;
+	margin:auto;
+	//padding-right: 20px;
+	font-family: 'Courier New';
+	//border: 1px solid black;
+	//box-shadow: 3px 3px 3px gray;
+}
+
+.container img{
+
+}
+
+div.title{
+	//height: 50px;
+	width: 58%;
+	//position: relative;
+	//top: 10px;
+	font-family: 'Courier New';
+	float: left;
+	font-size: 30px;
+	font-weight: bold;
+	margin-top: 5px;
+	margin-left: 20px;
+	//white-space: nowrap;
+	//overflow: hidden;
+	//text-overflow: ellipsis;
+}
+
+div.desc{
+
+	height: 30px;
+	padding-bottom: 10px;
+	width: 60%;
+	//position: relative;
+	margin-top: 10px;
+	font-family: 'Courier New';
+	font-size: 20px;
+	//clear: left;
+	float: left;
+	//width: 75%;
+	margin-left: 20px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: '...';
+	
+}
+
+div.fulldesc{
+	//width: 88%;
+	//position: relative;
+	margin-top: 5px;
+	font-size: 20px;
+	font-family: 'Courier New';
+	clear: left;
+	float: left;
+	overflow: auto;
+	padding-bottom: 30px;
+}
+
+div.buttons{
+	position:absolute;	
+	bottom: 3px;
+	background: white;
+}
+
+.buttons span:hover{
+	cursor: pointer;
+	color: blue;
+}
+
+#lk.div{
+	color:black;
+}
+
+#lk:hover{
+	color: red;
+}
+/*div.comment{
+
+	margin-left: 10px;
+	float:left;
+	
+	width: auto;
+	height: 99%;
+	border-left:1px solid black;
+	overflow-y:auto;
+}*/
+
+div.add{
+	
+	//float:left;
+	//border: 1px solid black;
+	position: relative;
+	top: 100px;
+	//margin-top: -350px;
+	//margin-left: 250px;'
+	//margin-top: 200px;
+	//left: 230px;
+
+	//z-index:-5;
+	display:initial;
+	padding-bottom: 100px;
+	
+
+}
+
+div.add img{ 
+	width: 300px;
+	min-height:800px;
+	border-radius: 10px;
+	box-shadow: 3px 3px 3px gray;
+}
+
+</style>
+
+
+<script>
+
+	function description(nbr){
+		//tag = document.querySelector('div.desc'+nbr);		
+		//tag2 = document.querySelector('#viewmore'+nbr);
+		//tag3 = document.querySelector('div.news'+nbr);
+		//tag4 = document.querySelector('div.news_con'+nbr);
+		//tag5 = document.querySelector('div.fulldesc'+nbr);
+		tag = document.querySelector('#a'+nbr);	
+		tag2 = document.querySelector('#'+nbr);
+		tag3 = document.querySelector('#c'+nbr);
+		tag4 = document.querySelector('#d'+nbr);
+		tag5 = document.querySelector('#e'+nbr);
+
+		if(window.getComputedStyle(tag).whiteSpace == 'nowrap') {
+			
+			tag.style.whiteSpace = 'normal';
+			tag.style.height='auto';
+			tag.style.overflow = 'auto';
+			tag.style.clear='left';
+			tag2.innerHTML = ' <font size="4"> &#8657; </font> View Less';
+			tag3.style.height = '230px';
+			tag4.style.height = "280px";
+			tag3.style.overflow = 'auto';
+			tag5.style.display = 'block';
+			tag.style.width="80%";
+		} else{
+			//addimage.style.left="600px";
+			tag.style.whiteSpace = 'nowrap';
+			tag.style.height='30px';
+			tag.style.clear='none';
+			tag.style.width="80%";
+			tag2.innerHTML = ' <font size="4"> &#8659; </font> Read More';
+			tag3.style.height = '130px';
+			tag4.style.height = '185px';
+			tag.style.overflow = 'hidden';
+			tag3.style.overflow = 'hidden';
+			tag5.style.display = "none";
+			tag3.scrollTo(0,0);
+			
+			
+		}
+		//sty.whiteSpace="normal";
+	}
+
+</script>

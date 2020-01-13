@@ -1,0 +1,378 @@
+﻿<?php
+	$menu1="";
+	$menu2="";
+	$user="";
+	
+	if(isset($_COOKIE["User"])){
+		$menu1 = '<a href="./Dashboard.php"> रूपरेखा  </a>';
+		$menu2 = '<a href="./HomePage.php?del=1"> खाताबंद करे </a>';
+		
+		$db['db_host'] = "localhost";
+		$db['db_user'] = "root";
+		$db['db_pass'] = "";
+		$db['db_name'] = "cms";
+	
+		$connection = mysqli_connect($db['db_host'],$db['db_user'],$db['db_pass'],$db['db_name']);
+		
+		$q="Select fullname from tbl_user where id=".$_COOKIE["User"];
+		$r=mysqli_query($connection,$q);
+		$row = mysqli_fetch_array($r);
+		$user = $row[0];
+		
+	} else {
+		$menu1 = '<a href="./User_Sign.php"> Log In </a>';
+		$menu2 = '<a href="./User_Registration.php"> Register </a>';
+	}
+	
+	//echo $_SERVER["PHP_SELF"];
+	if(isset($_COOKIE["User"]) && isset($_GET["like"]) && $_SERVER["PHP_SELF"]=="/NewsAgency/php/LikedNews.php"){
+				$q = "Select * from tbl_Liked_news where userid=".$_COOKIE["User"]. " and newid=".$_GET["n"].";";
+				echo $q;
+			$r = mysqli_query($connection,$q);
+			
+			
+			echo mysqli_error($connection);
+			
+			$number = mysqli_num_rows($r);
+			if($number){
+				$q="Delete from tbl_Liked_news where userid=".$_COOKIE["User"]." and newid=".$_GET["n"].";";
+				echo $q;
+				$r=mysqli_query($connection,$q);
+				echo mysqli_error($connection);
+				$like="Like";
+			}else{
+				$q="Insert into tbl_liked_news(userid,newid) values(".$_COOKIE["User"].",".$_GET["n"].");";
+				echo $q;
+				$r=mysqli_query($connection,$q);
+				echo mysqli_error($connection);
+				$like="Unlike";
+			}
+			
+				
+					header('Location: LikedNews.php');
+			}
+			
+?>
+
+<html>
+	<head>
+		<title>Natinal News Agency</title>
+		<link rel="shortcut icon" href='../images/Logo.png' />
+		<script>
+
+			var isHidden=true;
+			var isBoxVisible=true;
+			function show(){
+				var a = document.getElementById("MenuList").style;
+				addimage = document.querySelector("div.add");
+				if(isHidden){
+					isHidden=false;
+					a.display="block";
+					a.height="92%";
+					//a.opacity="1";
+					a.left="0px";
+					
+					a.width="250px";
+					addimage.style.left="90px";
+					//if (document.getElementById("all")!=null)
+						//document.getElementById("all").style.marginLeft="214px";			
+				} else {
+					isHidden=true;
+					//a.display="none";
+					a.width="0";
+					a.left="-210px";
+					a.height="100%";
+					//a.opacity="0";
+					//a.background="white";
+					
+					//a.overflow = "hidden";
+					addimage.style.left="110px";
+					//if (document.getElementById("all")!=null)
+					//	document.getElementById("all").style.marginLeft="0px";
+				}
+				
+				if(window.location.pathname.endsWith("HomePage.php") || window.location.pathname.endsWith("HomePageHindi.php")){
+					document.querySelector(".mainheader").style.height = "70px";
+					document.querySelector(".mainheader").style.width = "99%";
+				}
+				else {
+					document.querySelector(".mainheader").style.height = "50px";
+					document.querySelector(".mainheader").style.width = "98%";
+				}
+				document.getElementById("srchbox").focus();
+				return 0;
+			}
+
+			function mobile(){
+				var s = document.getElementById("srchbox").style;
+				var s1 = document.querySelector('#srchbox');
+				var width = window.getComputedStyle(s1).width;
+				if (width < "669.2px"){
+					s.display='none';
+					isBoxVisible=False;
+				} else {
+					s.display='block';
+					isBoxVisible=True;
+					//alert(width);
+				}
+			}
+
+			function show_box(){
+				var s = document.getElementById("srchbox").style;
+				if (isBoxVisible){
+					s.display='none';
+					s.width='80%';
+					isBoxVisible=False;
+				} else {
+					s.display='block';
+					s.margin.top='500px';
+					s.width='30%';
+					isBosVisible=True;
+				}
+			}
+	
+		function showHint(str) {
+		if (str.length == 0) { 
+			document.getElementById("txtHint").innerHTML = "";
+			return;
+		} else {
+			var xmlhttp = new XMLHttpRequest();
+			xmlhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("txtHint").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET", "test.php?q=" + str, true);
+        xmlhttp.send();
+    }
+}
+	
+		</script>
+
+		<link rel="stylesheet" id="linkh" href="./Stylesheets/header.css" />
+		<link rel="stylesheet" id="linkn" href="./Stylesheets/navigation.css" />
+
+
+	</head>
+
+	<body bgcolor="" onload="show();" onpageshow="" id="#top">
+
+		<span id="Current_Page" hidden>Home</span>	
+		<section class="main_Content" style=" margin: auto;">
+	
+	<header class="mainheader">
+
+		<div class="menu"  onClick="show();">
+			&#9776;
+		</div>
+
+		<div class="txt">
+				<a href="../php/HomePage.php" style="text-decoration: none; font-weight: bold; font-family: 'Footlight MT';">	
+					<span id="red">
+						राष्ट्रीय
+					</span>
+					<span  id="blue"> 
+						संदेश
+					</span>	
+					<span id="purple"> 
+						अभिकरण
+					</span>
+				</a>
+			
+		</div>
+		<form style="display: initial;" method="GET" action="<?php echo "SearchHindi.php"; ?>" >
+		<table class="src">
+			<tr>
+				<td style="width: 700px;">		
+					<input name="stxt"  id="srchbox"  type='text'/>
+					
+				</td>
+				<td>
+					<Button id="srchbtn" name="submit2" type="submit">खोजें </button>
+				</td>
+			
+			</tr>
+		</table>
+		</form>
+
+	<!--<div id="txtHind" style="positioin: fixed; border: 1px solid black; ">
+						<p>Hellow</p>
+	</div>	--->
+
+	</header>
+	<div class="profile" >
+	
+			<div id="profile_a" align="center" style="	 border-radius: 10px;">
+			<a>
+				<img id="pro_img" src="../images/user-icon.jpg"> 
+			</a>
+			
+			</div>
+			
+			<div class="pmenu">
+					<div id='abc'>
+					<?php echo $menu1; ?>
+					 &nbsp; | &nbsp;
+					<?php echo $menu2; ?>
+					</div>
+			</div>
+			
+			<?php if($user!="") echo "<span style=\"background: lightgray; padding: 3px 5px; border-radius: 10px;\">".$user."</span>"; ?>
+
+			
+		</div>
+	
+	<div class="MenuList" id="MenuList">
+		<div id="txt_menu">सुविधा</div>
+		
+		<a href="../php/HomePageHindi.php" style="margin-top: 20px;">		
+			<div class="pages" id="home" style="margin-top: 20px;" >
+				
+				<table> <tr> <td>
+				<img src='../images/hom.png' width='30px' height='30px'/> </td> <td class="pages">
+				 मुखपृष्ठ </td> </tr></table>
+			 	
+	 		</div>
+		</a> 
+
+		<a href="../php/Entertainment.php?s='Entertainment'">
+			<div class="pages" id="enter">
+				<table> <tr> <td>
+				<img src='../images/ent.png' width='30px' height='30px'/> </td> <td class="pages">
+				 मनोरंजन </td> </tr></table>
+				  
+			</div>
+		</a>
+
+		<a href="../php/Science.php?s='Science'">
+			<div class="pages" id="sci">
+				<table> <tr> <td>
+				<img src='../images/sci.png' width='30px' height='30px'/> </td> <td class="pages">
+				 विज्ञान </td> </tr></table>
+			</div>
+		</a>
+
+		<a href="../php/World.php?s='World'">
+			<div class="pages" id="world">
+				 <table> <tr> <td>
+				<img src='../images/wor.png' width='30px' height='30px'/> </td> <td class="pages">
+				  विश्व
+			</td> </tr></table>
+			</div>
+		</a>
+
+		<a href="../php/Religious.php?s='Religious'">
+			<div class="pages" id="relig">
+				<table> <tr> <td>
+				<img src='../images/Reli.png' width='30px' height='30px'/> </td> <td class="pages">
+				  धार्मिक 
+			</td> </tr></table>
+			</div>
+		</a>
+
+		<a href="../php/Business.php?s='Business'">
+			
+				<div class="pages" id="busi">
+				<table> <tr> <td>
+				<img src='../images/busi.png' width='30px' height='30px'/> </td> <td class="pages">
+				  व्यवसाय 
+			</td> </tr></table>
+			</div>
+		</a>
+
+		<a href="../php/Travel.php?s='Travel'">
+			<div class="pages" id="trav">
+				<table> <tr> <td>
+				<img src='../images/tra.png' width='30px' height='30px'/> </td> <td class="pages">
+				   यात्रा
+
+				 </td> </tr></table>
+			</div>
+		</a>
+		
+		<a href="../php/Technology.php?s='Technology'">
+			<div class="pages" id="tec">
+				<table> <tr> <td>
+				<img src='../images/tec.png' width='30px' height='30px'/> </td> <td class="pages">
+				   प्रौद्योगिकी
+
+				 </td> </tr></table>
+			</div>
+		</a>
+
+		<a href="../php/Local.php?s='Local'">
+			<div class="pages" id="loc">
+				<table> <tr> <td>
+				<img src='../images/loc.png' width='30px' height='30px'/> </td> <td class="pages">
+				 स्थानीक </td> </tr></table> 
+			</div>
+		</a>
+
+		<a href="../php/Sport.php?s='Sport'">
+			<div class="pages" id="spo">
+				<table> <tr> <td>
+				&#9917; </td><td>
+				 खेल 
+			</td> </tr></table>
+			   
+			</div>
+		</a>
+
+		<a href="../php/Politics.php?s='Politics'">
+			<div class="pages" id="pol">
+			 	<table> <tr> <td>
+				<img src='../images/pol.jpg' width='30px' height='30px'/> </td> <td class="pages">
+				  राजनीति 
+			</td> </tr></table>
+			</div>
+		</a>
+
+		<hr color="lightgray"/>
+
+		<a href="../php/HomePageHindi.php">
+		<div class="links" id="hin">
+			हिंदी मुखपृष्ठ 
+		</div>
+		</a>
+		
+		<a href="../php/HomePage.php">
+		<div class="links" id="eng">
+			English
+		</div>
+		</a>
+		
+		<a href="../php/User_Sign.php">
+			<div class="links" id="usr">
+			 User Login
+			</div>
+		</a>
+		
+		<a href="Dashboard.php">
+			<div class="links" id="Addvert">
+				Advertisment
+			</div>
+		</a>
+		
+		<a href="About.php"> 
+			<div class="links" id="abUs" style="">
+				About Us
+			</div>
+		</a>
+
+		<a href="Contact.php">
+			<div class="links" id="ctUs">
+				Contact Us 
+			</div>
+		</a>
+						
+		
+	</div>
+
+
+			
+</section>
+
+		
+	</body>
+</html>
+		

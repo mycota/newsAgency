@@ -1,0 +1,226 @@
+<?php
+
+$error = "";
+$n=$un=$eml="";
+
+$connection = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME);
+
+include('stic.php');
+include('advert.php');
+
+if(isset($_POST["submit33"])){
+
+		$cmp =  $_POST["cmp"];
+		$pk =  $_POST["pk"];
+		$phn = $_POST["contact"];
+		//$img = $_POST["image"];
+		$desc = $_POST["desc"];
+		
+		$namei = $_FILES['image']['name'];
+		$namet = $_FILES['image']['tmp_name'];
+		
+		if ($pk == 1)
+		{
+			$fordue = "adddate(curdate(),90)";
+		} elseif($pk==2){
+			$fordue = "adddate(curdate(),180)";
+		}else{
+			$fordue = "adddate(curdate(),365)";
+		}
+		
+		//echo $name;
+		
+		if(isset($_COOKIE["User"])){
+			$q= "Update tbl_user set contact = \"".$phn."\" where id=".$_COOKIE["User"].";";
+			$r = mysqli_query($connection,$q);
+			//echo mysqli_error($connection);
+			//echo $r;
+			
+			$q = "Insert into tbl_clients (usrid,busregname,logopath) values(".$_COOKIE["User"].",\"".$cmp."\",\"".$namei."\")";
+			$r = mysqli_query($connection,$q);
+			//echo mysqli_error($connection);
+			//echo mysqli_error($r);
+			//echo $r;
+			
+			//echo $_FILES["image"]["name"];
+			$name = $_FILES["image"]["name"];
+			move_uploaded_file($namet,"../editor/resource/images/Business/$namei");
+			
+			$lst_id = mysqli_insert_id($connection);
+			
+			
+			$query = "INSERT INTO tbl_adverts (advertname,clientid,advertpackageid,description,duedate) VALUES (\"".$namei."\",".$lst_id.",".$pk.",\"".$desc."\",".$fordue.");";
+			//echo $query;
+			$res = mysqli_query($connection,$query);
+			//echo mysqli_error($connection);
+			//echo $res;
+		}
+		
+			
+		
+		//echo mysqli_error($connection);
+		//echo $query;
+		//echo $res;
+				
+}
+
+?>
+
+<style>
+	label{
+		font-family: Constantia;
+		font-size: 1.5em;
+	}
+
+	div.usr{
+		text-shadow: 3px 3px 3px lightgray;
+	}
+	
+	div.usr input{
+		font-family: Constantia;
+		letter-spacing: 1px;
+		font-size: 1.5em;
+		padding: 10px;
+	}
+
+	#btns,#btnr{
+		font-size:25px; width:200px; box-shadow: 3px 3px 3px gray;
+	}
+
+	td #btns:hover,#btnr:hover{
+		box-shadow: 0px 0px 3px gray;
+		color:blue;
+	}	
+
+	div.usr td{
+		font-family: Constantia;
+		letter-spacing: 1px;
+		font-size: 20px;
+	}	
+	
+	input.chk{
+		width: 50px;
+	}	
+	
+	div.add{
+	
+	float:left;
+	//border: 1px solid black;
+	position: relative;
+	top: 100px;
+	//margin-top: -350px;
+	//margin-left: 250px;'
+	//margin-top: 200px;
+	//left: 230px;
+
+	//z-index:-5;
+	display:block;
+	padding-bottom: 100px;
+	
+
+}
+
+div.add img{ 
+	width: 300px;
+	min-height:800px;
+	border-radius: 10px;
+	box-shadow: 3px 3px 3px gray;
+}
+
+</style>
+
+<script>
+
+
+</script>
+
+<section style="margin-bottom: 100px; padding-bottom: 50px; position:relative; top: 100px; float: left; width: 68%; left: 40px; border: 1px solid gray; height: 80%;">
+<div class="usr" align="center"  style="font-size: 3em; margin:auto; border-bottom: 1px solid black;s border-radius: 30px; padding: 10px;">
+	Addvertisment Registration
+</div>
+<div align="center" class="usr" style=" margin: auto;  height: 300px; padding-top: 10px;">
+	<form method="post" style="" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" enctype="multipart/form-data">
+		<h3 style="color: red;" ><?php echo $error; ?></h3>
+		<table>
+		<tr>
+		<td> <label > Company Name </label> </td> <td> <label>:</label> <input name="cmp" type="text" placehood="Full Name" required /> </td>
+		</tr>
+		<tr>
+		<td> <label > Contact </label> </td> <td> <label>:</label> <input name="contact" type="tel" placehood="Full Name" required /> </td>
+		</tr>
+		
+		<tr>
+		<td> <label > Upload add. file</label> </td> <td> <label>:</label> <input name="image" type="file" placehood="Full Name" required /> </td>
+		</tr>
+		
+		<tr>
+		<td> <label > Package </label> </td> <td> <label>:</label> <select name="pk" style="font-size: 20px; padding: 5px;"> 
+		<?php
+		
+			$q = "Select * from tbl_advert_packages;";
+			$r = mysqli_query($connection,$q);
+			echo mysqli_error($connection);
+			while($row = mysqli_fetch_assoc($r)){
+				$packname=$row["pack_name"];
+				$packid = $row["pack_id"];
+				$prise = $row["pack_amount"];
+		
+		?>
+		<option style="font-size: 20px;" value="<?php echo $packid; ?>" > <?php echo $packname." Rs. ".$prise; ?></option> 
+		
+		
+		<?php
+			}
+		
+		?>
+		</select> </td>
+		</tr>
+		
+		<tr>
+		<td> <label > Description </label> </td> <td> <label>:</label> <textarea name="desc" row="30" cols="30" style="font-size: 25px;"> </textarea></td> 
+		</tr>
+		
+		<!---<tr>
+		<td>
+		<label > Favorite </label>
+		</td>
+		
+		<td>
+		<label>:</label> <input class="chk" type="checkbox" name="Fav-Sp" value="Sports" checked/> Sports
+		<input type="checkbox" class="chk" name="Fav-Tr" value="Travell"/> Travell
+		<input type="checkbox" class="chk" name="Fav-En" value="Entertainment"/> Entertainment
+		<input type="checkbox" class="chk" name="Fav=Bu" value="Business"/> Business
+		<input type="checkbox" class="chk" name="Fav-Re" value="Religius"/> Religius
+		</td>
+		</tr>--->
+		
+		<tr>
+		</tr>
+		
+		<tr>
+		<td>
+		<br />
+		<input style="" name="submit33" type="submit" value="Pay Now"/>
+		</td>
+		<td>
+		<br />
+		<input style="" name="btnr" type="reset" value="Reset"/>
+		</td>
+		</tr>
+		</table>
+
+	</form>
+</div>
+</section>
+
+<div class="add">
+	<img id="add_img" src='../editor/resource/images/Business/<?php echo $addimg[$jk]; ?>' />
+</div>
+
+
+<?php
+
+
+
+
+?>
